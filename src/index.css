@@ -1,0 +1,26 @@
+/* El contenedor ocupa al menos la pantalla y distribuye encabezado, página y pie. */
+#root,
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mensaje-error {
+  color: #b42318;
+  font-size: .85rem;
+}
+
+.aviso {
+  margin: 12px 0;
+}
+
+/* Conserva los saltos de línea que el usuario escribió en su comentario. */
+.comentario-texto {
+  white-space: pre-wrap;
+}
+
+button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}

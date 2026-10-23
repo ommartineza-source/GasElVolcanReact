@@ -1,0 +1,1483 @@
+/* =========================================
+   1. VARIABLES GLOBALES
+   Colores, tipografía, sombras y transiciones reutilizables.
+   ========================================= */
+.perfil-main {
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) minmax(0, 640px);
+    align-items: start;
+    gap: 40px;
+}
+
+.perfil-presentacion h1 {
+    color: var(--verde-oscuro);
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.perfil-presentacion p {
+    color: #627166;
+    margin-top: 12px;
+}
+
+.perfil-card {
+    background: white;
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    padding: clamp(24px, 4vw, 40px);
+    box-shadow: var(--sombra-suave);
+}
+
+.perfil-encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.perfil-encabezado h2 {
+    color: var(--verde-oscuro);
+    font-size: 1.6rem;
+    margin: 0;
+}
+
+.perfil-tipo {
+    background: #d9f2e3;
+    color: var(--verde-oscuro);
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-weight: 650;
+}
+
+.perfil-datos {
+    margin: 12px 0 0;
+}
+
+.perfil-datos > div {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--borde);
+}
+
+.perfil-datos dt {
+    color: #627166;
+    font-weight: 400;
+    font-size: .9rem;
+}
+
+.perfil-datos dd {
+    margin: 4px 0 0;
+    overflow-wrap: anywhere;
+    font-size: 1.05rem;
+}
+
+.perfil-acciones {
+    display: flex;
+    justify-content: center;
+    padding-top: 24px;
+}
+
+.perfil-cerrar-sesion {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: white;
+    color: #b42318;
+    border: 1px solid currentColor;
+    border-radius: 10px;
+    padding: 12px 22px;
+    font: inherit;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.perfil-cerrar-sesion:hover {
+    background: #fff1f0;
+}
+
+@media (max-width: 760px) {
+    .perfil-main {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
+:root {
+    --color-primario: #2e7d32;
+    --color-secundario: #1565c0;
+    --color-fondo: #f5f7f2;
+    --color-texto: #243b30;
+    --color-blanco: #fff;
+    --verde-oscuro: #123d2c;
+    --amarillo: #ffdb58;
+    --borde: #dfe7dc;
+    --fuente-principal: 'Segoe UI', system-ui, sans-serif;
+    --sombra-suave: 0 8px 28px rgba(20, 57, 37, .05);
+    --sombra-media: 0 18px 50px rgba(20, 57, 37, .10);
+    --transicion-suave: .2s ease;
+}
+
+
+/* =========================================
+   2. RESET Y ESTILOS GENERALES
+   Base del documento, títulos, imágenes y foco de teclado.
+   ========================================= */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--fuente-principal);
+    background: var(--color-fondo);
+    color: var(--color-texto);
+    line-height: 1.65;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+}
+
+.app-layout {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-layout > header,
+.app-layout > footer {
+    flex-shrink: 0;
+}
+
+.pagina-no-encontrada {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-encontrada-card {
+    width: 100%;
+    max-width: 680px;
+    background: white;
+    border: 1px solid var(--borde);
+    border-radius: 24px;
+    padding: clamp(24px, 5vw, 48px);
+    text-align: center;
+    box-shadow: var(--sombra-suave);
+}
+
+.no-encontrada-codigo {
+    display: block;
+    color: var(--color-primario);
+    font-size: clamp(4rem, 12vw, 7rem);
+    font-weight: 750;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.no-encontrada-card h1 {
+    color: var(--verde-oscuro);
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    margin-bottom: 16px;
+}
+
+.no-encontrada-card p {
+    color: #657367;
+}
+
+.no-encontrada-enlaces {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 16px;
+    margin-top: 28px;
+}
+
+.no-encontrada-enlaces .btn {
+    margin-top: 0;
+    justify-content: center;
+}
+
+.no-encontrada-enlaces .btn-producto {
+    gap: 16px;
+}
+
+@media (max-width: 440px) {
+    .no-encontrada-enlaces {
+        flex-direction: column;
+    }
+}
+
+::selection {
+    background: var(--amarillo);
+    color: var(--verde-oscuro);
+}
+
+h1, h2, h3 {
+    line-height: 1.2;
+    letter-spacing: -.035em;
+}
+
+p {
+    text-wrap: pretty;
+}
+
+a, button, input, textarea {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a, button {
+    transition: background var(--transicion-suave), color var(--transicion-suave), transform var(--transicion-suave), box-shadow var(--transicion-suave);
+}
+
+a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--color-secundario);
+    outline-offset: 5px;
+}
+
+img {
+    max-width: 100%;
+}
+
+
+/* =========================================
+   3. ENCABEZADO, LOGO Y NAVEGACIÓN
+   Barra superior compartida y enlace de la página actual.
+   ========================================= */
+header {
+    background: var(--verde-oscuro);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 14px max(24px, calc((100vw - 1152px) / 2));
+    border-bottom: 1px solid #ffffff20;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* Logo claro sobre verde, integrado al encabezado sin recuadro. */
+.imagen-logo {
+    display: block;
+    width: 200px;
+    height: 82px;
+    object-fit: contain;
+    mix-blend-mode: lighten;
+}
+
+nav {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 8px;
+}
+
+nav a {
+    display: block;
+    color: #e0eade;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .95rem;
+    padding: 9px 20px;
+    border-radius: 100px;
+}
+
+nav a:hover, nav a[aria-current='page'] {
+    background: #ffffff14;
+    color: var(--amarillo);
+}
+
+
+/* =========================================
+   4. BLOQUE DE ACCESO A LA CUENTA
+   Icono de usuario, saludo y enlace para iniciar o cerrar sesión.
+   ========================================= */
+.acceso-cuenta {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 1px solid #ffffff30;
+    border-radius: 14px;
+}
+
+.acceso-cuenta:hover {
+    background: #ffffff10;
+}
+
+.icono-usuario {
+    width: 27px;
+    height: 27px;
+    stroke: var(--amarillo);
+}
+
+.texto-cuenta {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.35;
+}
+
+.saludo {
+    font-size: .75rem;
+    color: #d7e3d7;
+}
+
+.accion {
+    color: var(--amarillo);
+    font-size: .9rem;
+    font-weight: 650;
+}
+
+
+/* =========================================
+   5. CONTENEDOR PRINCIPAL Y ETIQUETAS
+   Ancho máximo del contenido y pequeños textos sobre los títulos.
+   ========================================= */
+main {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+    flex: 1;
+}
+
+.eyebrow {
+    display: block;
+    font-size: .72rem;
+    font-weight: 750;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--color-primario);
+    margin-bottom: 18px;
+}
+
+
+/* =========================================
+   6. PORTADA DE INICIO (HERO)
+   Texto destacado, fotografía y tarjeta de ubicación.
+   ========================================= */
+.hero {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    background: var(--verde-oscuro);
+    color: white;
+    border-radius: 28px;
+    overflow: hidden;
+    min-height: 460px;
+    box-shadow: var(--sombra-media);
+}
+
+.hero-contenido {
+    padding: 58px 48px;
+    align-self: center;
+}
+
+.hero .eyebrow {
+    color: var(--amarillo);
+}
+
+.hero h1 {
+    font-size: clamp(2.3rem, 4.2vw, 3.7rem);
+    font-weight: 750;
+    line-height: 1.08;
+    margin-bottom: 24px;
+}
+
+.hero h1 span {
+    color: var(--amarillo);
+}
+
+.hero p {
+    font-size: 1rem;
+    color: #d4e1d6;
+    max-width: 440px;
+}
+
+.hero-visual {
+    position: relative;
+    min-height: 340px;
+}
+
+.imagen-paisaje {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+}
+
+.hero-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #123d2c35, transparent 45%);
+}
+
+.hero-ubicacion {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+    z-index: 1;
+    background: #ffffffed;
+    border-radius: 16px;
+    padding: 18px 22px;
+    color: var(--verde-oscuro);
+}
+
+.hero-ubicacion strong, .hero-ubicacion span {
+    display: block;
+}
+
+.hero-ubicacion span {
+    font-size: .8rem;
+    color: #5b6c61;
+}
+
+
+/* Botón amarillo que dirige desde la portada al catálogo. */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 30px;
+    padding: 14px 22px;
+    border-radius: 10px;
+    background: var(--amarillo);
+    color: var(--verde-oscuro);
+    text-decoration: none;
+    font-weight: 750;
+}
+
+.btn:hover {
+    background: #ffe987;
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   7. BENEFICIOS DEL SERVICIO
+   Tres bloques con icono, título y descripción breve.
+   ========================================= */
+.beneficios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 32px 12px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--borde);
+}
+
+.beneficio {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.beneficio-icono {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: #e5eddc;
+    color: var(--color-primario);
+    font-weight: 750;
+    flex-shrink: 0;
+}
+
+.beneficio strong {
+    display: block;
+    font-size: .93rem;
+}
+
+.beneficio p {
+    font-size: .8rem;
+    color: #657367;
+}
+
+
+/* =========================================
+   8. PRESENTACIÓN DE LA EMPRESA Y VIDEO
+   Tarjetas de información y reproductor del servicio de reparto.
+   ========================================= */
+.presentacion {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+}
+
+.detalle-empresa, .video-seccion {
+    padding: 32px;
+    border: 1px solid var(--borde);
+    border-radius: 22px;
+    background: white;
+}
+
+.detalle-empresa h2, .video-seccion h2 {
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+}
+
+.detalle-empresa p {
+    color: #617065;
+}
+
+.video-seccion video {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 260px;
+    margin-top: 20px;
+    border-radius: 14px;
+    background: var(--verde-oscuro);
+}
+
+
+/* =========================================
+   9. CATÁLOGO Y TARJETAS DE PRODUCTOS
+   Grilla de cilindros, imágenes, precios y enlaces al detalle.
+   ========================================= */
+.catalogo-header {
+    text-align: center;
+    max-width: 650px;
+    margin: 10px auto 40px;
+}
+
+.catalogo-header h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 16px;
+    color: var(--verde-oscuro);
+}
+
+.catalogo-header p {
+    color: #657367;
+}
+
+.grilla-productos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.tarjeta-producto {
+    background: white;
+    border: 1px solid var(--borde);
+    border-radius: 22px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--sombra-suave);
+    transition: transform .2s, box-shadow .2s;
+}
+
+.tarjeta-producto:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-media);
+}
+
+.tarjeta-producto img {
+    width: 100%;
+    height: 230px;
+    object-fit: contain;
+    padding: 16px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid #edf0e9;
+}
+
+.tarjeta-producto h2 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+}
+
+.descripcion-corta {
+    color: #657367;
+    font-size: .91rem;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.precio {
+    color: var(--color-secundario);
+    font-size: 1.9rem;
+    font-weight: 750;
+    letter-spacing: -.04em;
+    margin-bottom: 20px;
+}
+
+.btn-producto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    background: #edf4e8;
+    color: #245d29;
+    border: 1px solid #dbe8d4;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.btn-producto::after {
+    content: '→';
+}
+
+.btn-producto:hover {
+    background: var(--color-primario);
+    color: white;
+}
+
+
+/* =========================================
+   10. INICIO DE SESIÓN Y REGISTRO
+   Tarjetas de acceso, distribución de campos y mensajes introductorios.
+   ========================================= */
+.login-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 56px 24px;
+    background: radial-gradient(ellipse at center, #e4eddc, transparent 70%);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 460px;
+    padding: 40px;
+    background: white;
+    border: 1px solid var(--borde);
+    border-radius: 24px;
+    box-shadow: var(--sombra-media);
+}
+
+.registro-card {
+    max-width: 620px;
+}
+
+.login-card .eyebrow {
+    text-align: center;
+}
+
+.login-card h1 {
+    font-size: 2.1rem;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.form-intro {
+    text-align: center;
+    color: #657367;
+    font-size: .9rem;
+    margin-bottom: 30px;
+}
+
+
+/* =========================================
+   11. CAMPOS, BOTONES Y ENLACES DE FORMULARIOS
+   Estilos compartidos para inputs, textarea y acciones de envío.
+   ========================================= */
+.form-login {
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.tipo-cliente {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+}
+
+.tipo-cliente legend {
+    float: none;
+    width: auto;
+    font-size: .83rem;
+    font-weight: 650;
+    margin-bottom: 7px;
+}
+
+.campo-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+
+.campo-grupo label {
+    font-size: .83rem;
+    font-weight: 650;
+}
+
+.campo-grupo input, .campo-grupo textarea {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid #dbe3d7;
+    border-radius: 10px;
+    padding: 13px 14px;
+    background: #f9faf7;
+    color: var(--color-texto);
+    font: inherit;
+    font-size: 1rem;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.campo-telefono {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.prefijo-telefono {
+    font-weight: 650;
+}
+
+.campo-telefono input {
+    flex: 1;
+    width: 0;
+}
+
+.campo-grupo textarea {
+    resize: vertical;
+}
+
+
+/* Resalta el campo que se está editando. */
+.campo-grupo input:focus, .campo-grupo textarea:focus {
+    outline: none;
+    border-color: var(--color-primario);
+    background: white;
+    box-shadow: 0 0 0 4px #2e7d3212;
+}
+
+.btn-ingresar {
+    border: 0;
+    border-radius: 10px;
+    padding: 14px 22px;
+    background: var(--color-primario);
+    color: white;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.btn-ingresar:hover {
+    background: #226027;
+    box-shadow: 0 6px 18px #2e7d3220;
+    transform: translateY(-1px);
+}
+
+.login-footer-link {
+    border-top: 1px solid var(--borde);
+    margin-top: 26px;
+    padding-top: 22px;
+    text-align: center;
+    font-size: .86rem;
+    color: #657367;
+}
+
+.link-registro {
+    color: var(--color-primario);
+    font-weight: 700;
+    text-underline-offset: 4px;
+}
+
+
+/* =========================================
+   12. DETALLE DEL PRODUCTO
+   Estilos del detalle, limitados al contenedor .pagina-producto.
+   ========================================= */
+/* Botón de retorno al catálogo */
+.pagina-producto .navegacion-volver {
+    margin-bottom: 1.5rem;
+}
+
+.pagina-producto .btn-volver {
+    color: var(--color-primario);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.05rem;
+    transition: color 0.2s ease;
+}
+
+.pagina-producto .btn-volver:hover {
+    color: #1b4d1f;
+    text-decoration: underline;
+}
+
+/* Layout Principal del Producto */
+.pagina-producto .detalle-producto-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    background-color: var(--color-blanco);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+}
+
+.pagina-producto .imagen-principal {
+    width: 100%;
+    height: 380px;
+    /* Muestra el cilindro completo sin recortar sus extremos. */
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.pagina-producto .info-producto h1 {
+    color: var(--color-primario);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.pagina-producto .precio {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--color-secundario);
+    margin-bottom: 1rem;
+}
+
+.pagina-producto .descripcion,
+.pagina-producto .especificaciones {
+    margin-bottom: 1.5rem;
+}
+
+.pagina-producto .descripcion h2,
+.pagina-producto .especificaciones h2 {
+    font-size: 1.1rem;
+    color: var(--color-texto);
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-fondo);
+    padding-bottom: 0.3rem;
+}
+
+.pagina-producto .especificaciones ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.pagina-producto .especificaciones ul li {
+    padding: 0.3rem 0;
+}
+
+.pagina-producto .btn-agregar-carro {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 1rem;
+}
+
+
+/* =========================================
+   13. CANTIDAD, PRECIO TOTAL Y CARRO
+   Controles naranjas y distribución horizontal del diseño de referencia.
+   ========================================= */
+.pagina-producto .acciones-compra {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.pagina-producto .control-cantidad {
+    display: flex;
+    align-items: center;
+    border: 2px solid #ff6600;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.pagina-producto .btn-cantidad {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    width: 38px;
+    height: 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.pagina-producto .btn-cantidad:hover {
+    background-color: #d45300;
+}
+
+.pagina-producto .control-cantidad input {
+    width: 45px;
+    height: 40px;
+    border: none;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: transparent;
+}
+
+.pagina-producto .precio-total-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 10px;
+    min-width: 90px;
+}
+
+.pagina-producto .label-total {
+    font-size: 0.75rem;
+    color: #666;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.pagina-producto .monto-total {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #1b4d1f;
+}
+/* Permite reorganizar la compra sin comprimir los controles. */
+.pagina-producto .acciones-compra {
+    flex-wrap: wrap;
+}
+
+.pagina-producto .control-cantidad {
+    flex-shrink: 0;
+}
+
+.pagina-producto .btn-agregar-carro {
+    flex: 1 1 160px;
+}
+
+/* =========================================
+   14. OPINIONES Y COMENTARIOS
+   Formulario y tarjetas del diseño de referencia.
+   ========================================= */
+/* Sección de Comentarios */
+.pagina-producto .seccion-comentarios {
+    background-color: var(--color-blanco);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.pagina-producto .seccion-comentarios h2 {
+    color: var(--color-primario);
+    margin-bottom: 1.5rem;
+}
+
+.pagina-producto .form-comentario {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.pagina-producto .form-comentario textarea {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    resize: vertical;
+}
+
+.pagina-producto .form-comentario textarea:focus {
+    outline: none;
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+}
+
+.pagina-producto .lista-comentarios {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.pagina-producto .sin-comentarios {
+    font-style: italic;
+    color: #777;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.pagina-producto .tarjeta-comentario {
+    background-color: var(--color-fondo);
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 4px solid var(--color-primario);
+}
+
+.pagina-producto .comentario-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+}
+
+.pagina-producto .comentario-fecha {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.pagina-producto .comentario-texto {
+    color: var(--color-texto);
+    line-height: 1.4;
+}
+
+
+/* Ajustes locales para los estilos compartidos del sitio actual. */
+.pagina-producto .info-producto,
+.pagina-producto .galeria-producto {
+    min-width: 0;
+}
+
+.pagina-producto .info-producto h1,
+.pagina-producto .info-producto h2,
+.pagina-producto .seccion-comentarios h2 {
+    letter-spacing: normal;
+    line-height: 1.6;
+}
+
+.pagina-producto .info-producto > .eyebrow {
+    display: none;
+}
+
+.pagina-producto .precio {
+    letter-spacing: normal;
+}
+
+.pagina-producto .btn-ingresar {
+    border-radius: 5px;
+    padding: 0.85rem;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.pagina-producto .btn-agregar-carro {
+    font-size: 1.1rem;
+    padding: 1rem;
+}
+
+.pagina-producto .form-comentario textarea {
+    background: white;
+}
+
+.pagina-producto .tarjeta-comentario {
+    overflow-wrap: anywhere;
+}
+
+/* El producto pasa a una columna en tablets y celulares. */
+@media (max-width: 768px) {
+    .pagina-producto .detalle-producto-container {
+        grid-template-columns: 1fr;
+    }
+
+    .pagina-producto .imagen-principal {
+        height: 250px;
+    }
+}
+
+@media (max-width: 440px) {
+    .pagina-producto .detalle-producto-container,
+    .pagina-producto .seccion-comentarios {
+        padding: 1.25rem;
+    }
+
+    .pagina-producto .btn-agregar-carro {
+        flex-basis: 100%;
+    }
+}
+
+/* =========================================
+   15. PIE DE PÁGINA
+   Franja inferior con la identidad y los datos de la empresa.
+   ========================================= */
+footer {
+    background: var(--verde-oscuro);
+    color: #d0ddcf;
+    border-top: 3px solid var(--amarillo);
+    padding: 28px 24px;
+    text-align: center;
+    font-size: .8rem;
+    margin-top: auto;
+}
+
+
+/* =========================================
+   16. DISEÑO RESPONSIVO: TABLETS (HASTA 900 PX)
+   Reduce espacios y ajusta las columnas en pantallas medianas.
+   ========================================= */
+@media (max-width: 900px) {
+    .hero-contenido {
+        padding: 36px 28px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .grilla-productos {
+        gap: 16px;
+    }
+
+    .tarjeta-producto {
+        padding: 18px;
+    }
+
+    .detalle-producto-container {
+        gap: 24px;
+        padding: 24px;
+    }
+
+}
+
+
+/* =========================================
+   17. DISEÑO RESPONSIVO: MÓVILES (HASTA 700 PX)
+   Reorganiza la navegación y muestra las tarjetas en una columna.
+   ========================================= */
+@media (max-width: 700px) {
+    header {
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 12px 20px;
+    }
+
+    .imagen-logo {
+        height: 65px;
+        width: 140px;
+        padding: 0;
+    }
+
+    header nav {
+        order: 3;
+        width: 100%;
+        border-top: 1px solid #ffffff18;
+        padding-top: 8px;
+    }
+
+    nav ul {
+        justify-content: center;
+    }
+
+    .acceso-cuenta {
+        margin-left: auto;
+        padding: 8px 12px;
+    }
+
+    main {
+        padding: 24px 18px 40px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        border-radius: 20px;
+    }
+
+    .hero-contenido {
+        padding: 36px 28px;
+    }
+
+    .hero-visual {
+        min-height: 250px;
+    }
+
+    .beneficios {
+        grid-template-columns: 1fr;
+        padding: 24px 6px;
+        gap: 18px;
+    }
+
+    .presentacion, .grilla-productos, .detalle-producto-container {
+        grid-template-columns: 1fr;
+    }
+
+    .detalle-empresa, .video-seccion, .seccion-comentarios {
+        padding: 24px;
+    }
+
+    .tarjeta-producto img {
+        height: 240px;
+    }
+
+    .login-main {
+        padding: 30px 18px;
+    }
+
+    .login-card {
+        padding: 28px 22px;
+    }
+
+    .imagen-principal {
+        height: 280px;
+    }
+
+    .catalogo-header {
+        margin-top: 16px;
+    }
+
+}
+
+
+/* =========================================
+   18. DISEÑO RESPONSIVO: MÓVILES PEQUEÑOS (HASTA 440 PX)
+   Ajusta formularios, títulos y espacios para pantallas estrechas.
+   ========================================= */
+@media (max-width: 440px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 2.35rem;
+    }
+
+    .hero-contenido {
+        padding: 30px 24px;
+    }
+
+    .acciones-compra {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .detalle-producto-container {
+        padding: 20px;
+    }
+
+}
+
+
+/* =========================================
+   19. ACCESIBILIDAD: MOVIMIENTO REDUCIDO
+   Desactiva transiciones si el usuario prefiere reducir el movimiento.
+   ========================================= */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+
+}
+
+
+
+/* Carrito: estilos originales del compañero. */
+.acciones-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    min-width: 0;
+}
+
+.acceso-carrito {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 16px;
+    border: 1px solid #ffffff30;
+    border-radius: 16px;
+    color: var(--amarillo);
+    text-decoration: none;
+    font-size: .9rem;
+    font-weight: 650;
+}
+
+.acceso-carrito:hover,
+.acceso-carrito[aria-current='page'] {
+    background: #ffffff14;
+    color: var(--amarillo);
+}
+
+.carrito-container .btn-volver {
+    color: var(--color-primario);
+    font-weight: 650;
+}
+
+.item-carrito {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.item-carrito-imagen {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.item-carrito-info {
+  flex: 1;
+}
+
+.item-carrito-precio {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.item-carrito-cantidad {
+  font-weight: bold;
+}
+
+.item-carrito-subtotal {
+  min-width: 100px;
+  text-align: right;
+}
+
+.item-carrito-eliminar {
+  background: #e53e3e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* =========================================
+   21. CARRITO
+   carrito view
+   ========================================= */
+
+.compra-exitosa-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.compra-exitosa-card {
+    width: 100%;
+    max-width: 580px;
+    padding: clamp(28px, 5vw, 48px);
+    border: 1px solid var(--borde);
+    border-radius: 24px;
+    background: white;
+    box-shadow: var(--sombra-suave);
+    text-align: center;
+}
+
+.compra-exitosa-icono {
+    width: 80px;
+    height: 80px;
+    color: var(--color-primario);
+    margin-bottom: 24px;
+}
+
+.compra-exitosa-card h1 {
+    color: var(--verde-oscuro);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: 16px;
+}
+
+.compra-exitosa-card p {
+    color: #657367;
+    margin-bottom: 0;
+}
+
+.carrito-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.carrito-lista {
+  margin-bottom: 2rem;
+}
+
+.carrito-total {
+  border-top: 2px solid #333;
+  padding-top: 1rem;
+  text-align: right;
+}
+
+.carrito-total p {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.carrito-vacio {
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 2rem 0;
+}
+
+.btn-finalizar {
+  background: var(--color-primario, #1b4d1f);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+
+.btn-vaciar {
+  background: #666;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+@media (max-width: 700px) {
+    .acciones-header {
+        max-width: 100%;
+    }
+
+    .acciones-header .acceso-cuenta {
+        margin-left: 0;
+    }
+
+    .item-carrito {
+        flex-wrap: wrap;
+    }
+
+    .item-carrito-info {
+        min-width: 140px;
+        overflow-wrap: anywhere;
+    }
+
+    .item-carrito-imagen {
+        flex-shrink: 0;
+    }
+}
+
+@media (max-width: 440px) {
+    .acciones-header {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .carrito-total .btn-finalizar,
+    .carrito-total .btn-vaciar {
+        width: 100%;
+        margin: 0 0 12px;
+    }
+}
+
